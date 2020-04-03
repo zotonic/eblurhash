@@ -2,6 +2,9 @@
 
 This is an Erlang version of https://blurha.sh
 
+A _blurhash_ is a compact string with encoded colors to show a blurred version of an image before the image
+itself is loaded.
+
 ## With ImageMagick
 
 Use the `magick` function to first let imagemagick resize (and secure) the
