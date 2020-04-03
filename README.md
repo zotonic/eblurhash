@@ -7,11 +7,15 @@ This is an Erlang version of https://blurha.sh
 Use the `magick` function to first let imagemagick resize (and secure) the
 image, before using the blurhash program to calculate the hash.
 
-    eblurhash:magick("path/to/image.jpg").
+```erlang
+eblurhash:magick("path/to/image.jpg").
+```
 
 Return something like:
 
-    {ok, <<"MlMF%n00%#Mwo}S|WCWEM{a$R*bbWBbHfl">>}
+```erlang
+{ok, <<"MlMF%n00%#Mwo}S|WCWEM{a$R*bbWBbHfl">>}
+```
 
 **Note:** you will need to have ImageMagick installed
 
@@ -30,7 +34,9 @@ is **not** recommended to use this version in production on untrusted data!
 
 The blurhash command needs to have the X and Y arguments provided:
 
-    eblurhash:hash(5, 3, "path/to/image.jpg").
+```erlang
+eblurhash:hash(5, 3, "path/to/image.jpg").
+```
 
 Returns `{ok, <<"...">>}` or `{error, Reason}`.
 
