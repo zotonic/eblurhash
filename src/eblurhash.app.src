@@ -1,0 +1,11 @@
+{application, eblurhash, [
+    {description, "Blurhash for Erlang"},
+    {vsn, "git"},
+    {registered, []},
+    {applications, [kernel, stdlib]},
+    {env, []},
+    {modules, []},
+    {maintainers, ["Zotonic Team"]},
+    {licenses, ["Apache 2.0"]},
+    {links, [{"GitHub", "https://github.com/zotonic/eblurhash"}]}
+]}.

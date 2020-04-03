@@ -5,13 +5,12 @@
 erl_crash.dump
 .concrete/DEV_MODE
 
-# rebar 2.x
-.rebar
-rel/example_project
-ebin/*.beam
-deps
-
-# rebar 3
+rebar3
 .rebar3
 _build/
 _checkouts/
+ebin/
+
+test/*_SUITE_data/tmp/
+
+priv/blurhash
