@@ -1,0 +1,2 @@
+# eblurhash
+Blurhash in Erlang
