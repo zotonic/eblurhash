@@ -26,13 +26,14 @@
 
 
 -spec magick( file:filename_all() ) -> {ok, binary()} | {error, nofile | format | convert}.
-magick(File) ->
-    % 1. Resize the file to a small png
-    TmpFile = tempfile(".gif"),
+magick(File0) ->
     case os:find_executable("convert") of
         false ->
             {error, convert};
         Convert ->
+            % Resize the file to a small gif
+            TmpFile = tempfile(".gif"),
+            File = unicode:characters_to_list(File0),
             Cmd = lists:flatten([
                 os_filename(Convert),
                 " ",
@@ -61,7 +62,7 @@ magick(File) ->
 
 -spec hash( X::1..9, Y::1..9, file:filename_all() ) -> {ok, binary()} | {error, nofile | format}.
 hash(X, Y, File0) ->
-    File = to_string(File0),
+    File = unicode:characters_to_list(File0),
     case {filelib:is_regular(File), is_supported(filename:extension(File))} of
         {true, true} ->
             PrivDir = code:priv_dir(eblurhash),
@@ -72,7 +73,7 @@ hash(X, Y, File0) ->
                     " ",
                     os_filename(File)
                 ]),
-            {ok, iolist_to_binary(trim(os:cmd(Cmd)))};
+            {ok, iolist_to_binary(dropspaces(os:cmd(Cmd)))};
         {false, _} ->
             {error, nofile};
         {_, false} ->
@@ -89,17 +90,16 @@ is_supported(".JPG") -> true;
 is_supported(".JPEG") -> true;
 is_supported(_) -> false.
 
-to_string(File) when is_binary(File) -> File;
-to_string(File) when is_list(File) -> unicode:characters_to_list(File).
-
-trim(L) ->
+dropspaces(L) ->
     [ C || C <- L, C >= 32 ].
 
 
 %% @doc Simple escape function for filenames as commandline arguments.
 %% foo/"bar.jpg -> "foo/\"bar.jpg"; on windows "foo\\\"bar.jpg" (both including quotes!)
-os_filename(A) ->
-    os_filename(A, []).
+os_filename(A) when is_binary(A) ->
+    os_filename(unicode:characters_to_list(A, utf8));
+os_filename(A) when is_list(A) ->
+    os_filename(lists:flatten(A), []).
 
 os_filename([], Acc) ->
     filename:nativename([$'] ++ lists:reverse(Acc) ++ [$']);
