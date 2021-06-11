@@ -31,5 +31,5 @@ $(C_SRC_OUTPUT): blurhash_stb.c encode.c encode.h stb_image.h
 
 .PHONY: clean
 clean:
-	rm *.o
+	rm -f *.o
 	rm -f $(C_SRC_OUTPUT)
