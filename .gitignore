@@ -14,3 +14,4 @@ ebin/
 test/*_SUITE_data/tmp/
 
 priv/blurhash
+priv/eblurhash_drv.so
